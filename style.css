@@ -121,14 +121,6 @@ input#submit:hover {
 }
 
 /* ====== TABLE ====== */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 16px;
-    min-width: 800px;
-    background: linear-gradient(to bottom, #f0e4fa 0%, #f9f3ff 50%, #f0e4fa 100%);
-}
-
 th,
 td {
     border: 1.5px solid black;
@@ -166,6 +158,13 @@ th {
 #resultTable td:nth-child(11),
 #resultTable td:nth-child(12) { background-color: rgba(75, 0, 130, 0.20); }
 
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 16px;
+    min-width: 800px;
+    background: linear-gradient(to bottom, #f0e4fa 0%, #f9f3ff 50%, #f0e4fa 100%);
+}
 
 /* ====== HOVER EFFECT ====== */
 #resultTable tr:hover td {
