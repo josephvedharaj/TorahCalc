@@ -10,16 +10,15 @@
 
 <h2>TorahCalc</h2>
 
-<!-- Scrollable table container -->
 <div class="table-container">
     <table id="resultTable"></table>
 </div>
 
 <div>
-    <!-- Go back to previous page -->
     <button id="calcano">Calculate Another Verse ->></button>
 </div>
 <br>
+
 <script>
 document.getElementById('calcano').addEventListener('click', () => {
     window.history.back();
@@ -36,6 +35,14 @@ const letters = {
 };
 
 function singleDigitSum(n){ return n ? (n%10 + singleDigitSum(Math.floor(n/10))) : 0; }
+
+function cleanInput(text) {
+    // keep only Hebrew letters (א-ת), spaces, and remove duplicates
+    return text
+        .replace(/[^א-ת\s]/g, ' ')    // remove non-Hebrew chars
+        .replace(/\s+/g, ' ')         // replace multiple spaces with one
+        .trim();                      // remove leading/trailing spaces
+}
 
 function calc(words){
     let output = [];
@@ -57,21 +64,16 @@ function calc(words){
 
 function totcalc(output, rawverse){
     let total = [0, rawverse,0,0,0,0,0,0,0,0,0,0,0]; 
-    // index 0 for word count, index 12 for letter count
-
     total[0] = output.length;
-    total[12] = rawverse.replace(/\s+/g, '').length; // total letters count
-
+    total[12] = rawverse.replace(/\s+/g, '').length; // letter count
     for(let arr of output){
         for(let i=1;i<=10;i++) total[i+1]+=arr[i];
     }
     return total;
 }
 
-// Male/Female letter detection
 function findMaleFemale(rawverse) {
     const baseLetters = new Set(['א','ב','ג','ד','ה','ו','ז','ח','ט','י','כ','ל','מ','נ','ס','ע','פ','צ','ק','ר','ש','ת']);
-    
     let maleletters = new Set();
     for (let l of rawverse) {
         if (l === ' ' || l === '׃') continue;
@@ -82,26 +84,25 @@ function findMaleFemale(rawverse) {
         else if (l === 'ץ') maleletters.add('צ');
         else maleletters.add(l);
     }
-
     let femaleletters = new Set();
     for (let l of baseLetters) {
         if (!maleletters.has(l)) femaleletters.add(l);
     }
-
     return [maleletters, femaleletters];
 }
 
-// ------------------ Main Execution ------------------
-const verseText = sessionStorage.getItem('verseText') || "";
-const wordsArray = verseText.trim().split(/\s+/);
+// ------------------ Main ------------------
+let verseText = sessionStorage.getItem('verseText') || "";
+verseText = cleanInput(verseText);  // clean input before processing
 
+const wordsArray = verseText.trim().split(/\s+/);
 const output = calc(wordsArray);
 const total = totcalc(output, wordsArray.join(' '));
 const [maleletters,femaleletters] = findMaleFemale(wordsArray.join(' '));
 
 const table = document.getElementById('resultTable');
 
-// ------------------ Table Headers ------------------
+// ------------------ Headers ------------------
 const headers = [
     'No.', 'Words','Ord Tot','Card Tot','Single of Ord Tot','Single of Card Tot',
     'Single of Single of Ord Tot','Single of Single of Card Tot','Tot of Single of Ord',
@@ -116,12 +117,12 @@ for(let h of headers){
     let th = document.createElement('th');
     th.innerText = h;
     th.style.backgroundColor = colors[i];
-    i += 1;
+    i++;
     tr.appendChild(th);
 }
 table.appendChild(tr);
 
-// ------------------ Table Body ------------------
+// ------------------ Rows ------------------
 output.forEach((arr,i)=>{
     let tr = document.createElement('tr');
     let td1 = document.createElement('td'); td1.innerText = i+1; tr.appendChild(td1);
@@ -133,7 +134,7 @@ output.forEach((arr,i)=>{
     table.appendChild(tr);
 });
 
-// ------------------ Total Section ------------------
+// ------------------ Totals ------------------
 let trTotalHeader = document.createElement('tr');
 trTotalHeader.innerHTML = `<th colspan=12>Total</th>`;
 table.appendChild(trTotalHeader);
@@ -165,7 +166,7 @@ trTotalSum1.innerHTML = `
 `;
 table.appendChild(trTotalSum1);
 
-// ------------------ Male/Female Sections ------------------
+// ------------------ Male/Female ------------------
 const maleArr = Array.from(maleletters);
 const femaleArr = Array.from(femaleletters);
 const maleOutput = calc([maleArr.join('')]);
