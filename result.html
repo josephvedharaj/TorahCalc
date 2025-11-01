@@ -108,10 +108,15 @@ const headers = [
     'Tot of Single of Card','Single of Tot of Single of Ord','Single of Tot of Single of Card'
 ];
 
+const colors = ["#371400", "#800000", "#CC5500", "#CC5500", "#B3B300", "#B3B300", "#006400", "#006400", "#00008B", "#00008B", "#2E0854", "#2E0854", "#4B0082", "#4B0082"];
+
 let tr = document.createElement('tr');
+let i = 0;
 for(let h of headers){
     let th = document.createElement('th');
     th.innerText = h;
+    th.style.backgroundColor = colors[i];
+    i += 1;
     tr.appendChild(th);
 }
 table.appendChild(tr);
@@ -152,11 +157,11 @@ table.appendChild(trTotalValues);
 
 let trTotalSum1 = document.createElement('tr');
 trTotalSum1.innerHTML = `
-<td colspan=2>${total[2]+total[3]}</td>
-<td colspan=2>${total[4]+total[5]}</td>
-<td colspan=2>${total[6]+total[7]}</td>
-<td colspan=2>${total[8]+total[9]}</td>
-<td colspan=2>${total[10]+total[11]}</td>
+<td colspan=2 style="background-color: rgba(255, 127, 0, 0.27)">${total[2]+total[3]}</td>
+<td colspan=2 style="background-color: rgba(255, 255, 0, 0.27)">${total[4]+total[5]}</td>
+<td colspan=2 style="background-color: rgba(0, 255, 0, 0.27)">${total[6]+total[7]}</td>
+<td colspan=2 style="background-color: rgba(0, 0, 255, 0.27)">${total[8]+total[9]}</td>
+<td colspan=2 style="background-color: rgba(75, 0, 130, 0.27)">${total[10]+total[11]}</td>
 `;
 table.appendChild(trTotalSum1);
 
@@ -189,11 +194,11 @@ table.appendChild(trMaleValues);
 
 let trMaleSum = document.createElement('tr');
 trMaleSum.innerHTML = `
-<td colspan=2>${maleOutput[0][1]+maleOutput[0][2]}</td>
-<td colspan=2>${maleOutput[0][3]+maleOutput[0][4]}</td>
-<td colspan=2>${maleOutput[0][5]+maleOutput[0][6]}</td>
-<td colspan=2>${maleOutput[0][7]+maleOutput[0][8]}</td>
-<td colspan=2>${maleOutput[0][9]+maleOutput[0][10]}</td>
+<td colspan=2 style="background-color: rgba(255, 127, 0, 0.27)">${maleOutput[0][1]+maleOutput[0][2]}</td>
+<td colspan=2 style="background-color: rgba(255, 255, 0, 0.27)">${maleOutput[0][3]+maleOutput[0][4]}</td>
+<td colspan=2 style="background-color: rgba(0, 255, 0, 0.27)">${maleOutput[0][5]+maleOutput[0][6]}</td>
+<td colspan=2 style="background-color: rgba(0, 0, 255, 0.27)">${maleOutput[0][7]+maleOutput[0][8]}</td>
+<td colspan=2 style="background-color: rgba(75, 0, 130, 0.27)">${maleOutput[0][9]+maleOutput[0][10]}</td>
 `;
 table.appendChild(trMaleSum);
 
@@ -220,11 +225,11 @@ table.appendChild(trFemaleValues);
 
 let trFemaleSum = document.createElement('tr');
 trFemaleSum.innerHTML = `
-<td colspan=2>${femaleOutput[0][1]+femaleOutput[0][2]}</td>
-<td colspan=2>${femaleOutput[0][3]+femaleOutput[0][4]}</td>
-<td colspan=2>${femaleOutput[0][5]+femaleOutput[0][6]}</td>
-<td colspan=2>${femaleOutput[0][7]+femaleOutput[0][8]}</td>
-<td colspan=2>${femaleOutput[0][9]+femaleOutput[0][10]}</td>
+<td colspan=2 style="background-color: rgba(255, 127, 0, 0.27)">${femaleOutput[0][1]+femaleOutput[0][2]}</td>
+<td colspan=2 style="background-color: rgba(255, 255, 0, 0.27)">${femaleOutput[0][3]+femaleOutput[0][4]}</td>
+<td colspan=2 style="background-color: rgba(0, 255, 0, 0.27)">${femaleOutput[0][5]+femaleOutput[0][6]}</td>
+<td colspan=2 style="background-color: rgba(0, 0, 255, 0.27)">${femaleOutput[0][7]+femaleOutput[0][8]}</td>
+<td colspan=2 style="background-color: rgba(75, 0, 130, 0.27)">${femaleOutput[0][9]+femaleOutput[0][10]}</td>
 `;
 table.appendChild(trFemaleSum);
 </script>
